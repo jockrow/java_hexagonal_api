@@ -1,0 +1,24 @@
+{
+	"configurations": {
+		"Java Gradle Debug": {
+			"adapter": "vscode",
+			"configuration": {
+				"type": "java",
+				"request": "launch",
+				"name": "Java Gradle Debug",
+				"projectRoot": "${workspaceRoot}",
+				"buildWorkspace": true,
+				"workspaceRoot": "${workspaceRoot}",
+				"projectName": "api_rest",
+				"mainClass": "ycom.test.api_rest.ApiRestApplication",
+				"args": [],
+				"cwd": "${workspaceRoot}",
+				"stopOnEntry": false,
+				"classpath": [],
+				"sourcePaths": [],
+				"env": {},
+				"javaPath": "java"
+			}
+		}
+	}
+}

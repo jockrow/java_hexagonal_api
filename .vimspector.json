@@ -1,0 +1,28 @@
+{
+	"configurations": {
+		"Java Gradle Debug": {
+			"adapter": "vscode-java",
+			"configuration": {
+				"type": "java",
+				"request": "launch",
+				"name": "Java Gradle Debug",
+				"projectRoot": "${workspaceRoot}",
+				"buildWorkspace": true,
+				"workspaceRoot": "${workspaceRoot}",
+				"projectName": "api_rest",
+				"mainClass": "com.test.api_rest.ApiRestApplication",
+				"args": [],
+				"cwd": "${workspaceRoot}",
+				"stopOnEntry": false,
+				"classpath": [
+					"${workspaceRoot}/gradle/wrapper/gradle-wrapper.jar"
+				],
+				"sourcePaths": [
+					"${workspaceRoot}/src/main/java"
+				],
+				"env": {},
+				"javaPath": "java"
+			}
+		}
+	}
+}
