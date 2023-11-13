@@ -21,36 +21,36 @@ public class UserServiceImpl implements IUserService {
 		this.userRepository = userRepository;
 	}
 
-	@Override
-	public User create(User user) {
-		return userRepository.save(user);
-	}
-
-	@Override
-	public User getById(Long id) {
-		var optionalUser = userRepository.findById(id);
-
-		// if (optionalUser.isEmpty()){
-		// throw new UserException(HttpStatus.NOT_FOUND,
-		// String.format(UserConstant.TASK_NOT_FOUND_MESSAGE_ERROR, id));
-		// }
-
-		return optionalUser.get();
-	}
+	// @Override
+	// public User create(User user) {
+	// return userRepository.save(user);
+	// }
+	//
+	// @Override
+	// public User getById(Long id) {
+	// var optionalUser = userRepository.findById(id);
+	//
+	// // if (optionalUser.isEmpty()){
+	// // throw new UserException(HttpStatus.NOT_FOUND,
+	// // String.format(UserConstant.TASK_NOT_FOUND_MESSAGE_ERROR, id));
+	// // }
+	//
+	// return optionalUser.get();
+	// }
 
 	@Override
 	public List<User> getAll() {
 		return userRepository.findAll();
 	}
 
-	@Override
-	public void deleteById(Long id) {
-		userRepository.deleteById(id);
-	}
-
-	@Override
-	public User update(User user) {
-		return userRepository.save(user);
-	}
+	// @Override
+	// public void deleteById(Long id) {
+	// userRepository.deleteById(id);
+	// }
+	//
+	// @Override
+	// public User update(User user) {
+	// return userRepository.save(user);
+	// }
 
 }

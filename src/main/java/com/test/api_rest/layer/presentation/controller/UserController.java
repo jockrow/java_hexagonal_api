@@ -25,19 +25,19 @@ public class UserController {
 		this.iUserFacade = iUserFacade;
 	}
 
-	@GetMapping("/{id}")
-	public UserDto getById(@PathVariable long id) {
-		return iUserFacade.getById(id);
-	}
+	// @GetMapping("/{id}")
+	// public UserDto getById(@PathVariable long id) {
+	// return iUserFacade.getById(id);
+	// }
 
 	@GetMapping
 	public List<UserDto> getAll() {
 		return iUserFacade.getAll();
 	}
 
-	@DeleteMapping("/{id}")
-	public void deleteUserById(@PathVariable Long id) {
-		iUserFacade.deleteById(id);
-	}
+	// @DeleteMapping("/{id}")
+	// public void deleteUserById(@PathVariable Long id) {
+	// iUserFacade.deleteById(id);
+	// }
 
 }

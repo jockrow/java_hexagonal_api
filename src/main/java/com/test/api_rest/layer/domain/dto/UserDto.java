@@ -13,7 +13,7 @@ public class UserDto {
 
 	private Long id;
 	private String name;
-	private byte email;
+	private String email;
 	private String country;
 	private String password;
 

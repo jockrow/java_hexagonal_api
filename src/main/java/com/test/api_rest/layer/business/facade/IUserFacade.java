@@ -7,14 +7,9 @@ import java.util.List;
 
 public interface IUserFacade {
 
-	UserDto createNew(UserRequest request);
-
-	UserDto getById(Long id);
-
+	// UserDto createNew(UserRequest request);
+	// UserDto getById(Long id);
 	List<UserDto> getAll();
-
-	void deleteById(Long id);
-
-	UserDto update(UserRequest request, Long id);
-
+	// void deleteById(Long id);
+	// UserDto update(UserRequest request, Long id);
 }

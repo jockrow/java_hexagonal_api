@@ -31,18 +31,27 @@ public class UserFacade implements IUserFacade {
 		this.userSetValuesToUpdateService = userSetValuesToUpdateService;
 	}
 
-	public UserDto createNew(UserRequest request) {
-		var userRequest = userRequestMapper.toDomain(request);
-		var userCreated = iUserService.create(userRequest);
-		return userDtoMapper.toDto(userCreated);
-	}
+	// public UserFacade(
+	// UserRequestMapper userRequestMapper,
+	// UserDtoMapper userDtoMapper,
+	// UserSetValuesToUpdateService userSetValuesToUpdateService) {
+	// this.userRequestMapper = userRequestMapper;
+	// this.userDtoMapper = userDtoMapper;
+	// this.userSetValuesToUpdateService = userSetValuesToUpdateService;
+	// }
 
-	public UserDto getById(Long id) {
+	// public UserDto createNew(UserRequest request) {
+	// var userRequest = userRequestMapper.toDomain(request);
+	// var userCreated = iUserService.create(userRequest);
+	// return userDtoMapper.toDto(userCreated);
+	// }
 
-		var user = iUserService.getById(id);
-
-		return userDtoMapper.toDto(user);
-	}
+	// public UserDto getById(Long id) {
+	//
+	// var user = iUserService.getById(id);
+	//
+	// return userDtoMapper.toDto(user);
+	// }
 
 	public List<UserDto> getAll() {
 		var users = iUserService.getAll();
@@ -53,24 +62,24 @@ public class UserFacade implements IUserFacade {
 				.collect(Collectors.toList());
 	}
 
-	public void deleteById(Long id) {
-
-		var user = iUserService.getById(id);
-
-		// userValidateAvailabilityToDeleteService.execute(user);
-
-		iUserService.deleteById(id);
-	}
-
-	public UserDto update(UserRequest request, Long id) {
-
-		var userToUpdate = userRequestMapper.toDomain(request);
-
-		userSetValuesToUpdateService.execute(request, userToUpdate);
-
-		var userUpdated = iUserService.update(userToUpdate);
-
-		return userDtoMapper.toDto(userUpdated);
-	}
+	// public void deleteById(Long id) {
+	//
+	// var user = iUserService.getById(id);
+	//
+	// // userValidateAvailabilityToDeleteService.execute(user);
+	//
+	// iUserService.deleteById(id);
+	// }
+	//
+	// public UserDto update(UserRequest request, Long id) {
+	//
+	// var userToUpdate = userRequestMapper.toDomain(request);
+	//
+	// userSetValuesToUpdateService.execute(request, userToUpdate);
+	//
+	// var userUpdated = iUserService.update(userToUpdate);
+	//
+	// return userDtoMapper.toDto(userUpdated);
+	// }
 
 }
