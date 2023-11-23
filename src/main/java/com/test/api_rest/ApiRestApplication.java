@@ -1,4 +1,4 @@
-package com.test;
+package com.test.api_rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

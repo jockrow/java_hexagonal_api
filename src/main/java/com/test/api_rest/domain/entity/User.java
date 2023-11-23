@@ -33,5 +33,11 @@ public class User {
 	private String email;
 	private String country;
 	private String password;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {
+			CascadeType.PERSIST,
+			CascadeType.MERGE
+	})
+	@JoinTable(name = "user_task", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))
+	private Set<Task> tasks = new HashSet<>();
 
 }
