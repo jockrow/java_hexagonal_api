@@ -1,5 +1,3 @@
-# TODO: Poner habilidad linux
-
 # Java Spring with Hexagonal architecture
 This is a project Java Spring for api rest with Hexagonal architecture
 
@@ -96,7 +94,6 @@ curl -X PUT http://localhost:8080/users/3 \
 **Example Response**:
 ```json
 {
-	// TODO: Validar que no cree un nuevo usuario cuando no exista por id
   "id": 3,
   "name": "updated_user",
   "email": "updated_user@example.com"
@@ -173,7 +170,6 @@ curl -X PUT http://localhost:8080/tasks/103 \
 **Example Response**:
 ```json
 {
-	// TODO: Validar que no cree un nueva tarea cuando no exista por id
   "id": 103,
   "name": "Updated Task",
   "description": "Updated details",
