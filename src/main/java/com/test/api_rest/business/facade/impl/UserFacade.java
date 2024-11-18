@@ -85,7 +85,6 @@ public class UserFacade implements IUserFacade {
 	}
 
 	public UserDto update(UserRequest userRequest, Long id) {
-
 		var userToUpdate = userRequestMapper.toDomain(userRequest);
 
 		userSetValuesToUpdateService.execute(userRequest, userToUpdate);

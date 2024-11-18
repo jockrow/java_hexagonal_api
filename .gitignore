@@ -36,4 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-api_collections/
+### Other Files ###
+*.old

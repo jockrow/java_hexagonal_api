@@ -1,68 +1,202 @@
+# TODO: Poner habilidad linux
+
 # Java Spring with Hexagonal architecture
-This is a project Java Spring with Hexagonal architecture
+This is a project Java Spring for api rest with Hexagonal architecture
+
+# For testing
 
 # Requisites:
-Gradle 7.6
-jdk 17.0.9
-PostgreSQL 14.9
+Feature	Tool
+Package Management	Gradle 7.6
+Compiler	jdk 17.0.9
+Database	PostgreSQL 14.9
+Testing	mockito
+
+# Instruction to create persistence data
+```sql
+CREATE TABLE users (ID INT PRIMARY KEY , NAME TEXT, EMAIL VARCHAR(50),
+COUNTRY VARCHAR(50), PASSWORD VARCHAR(50))
 
 
-# PROBLEMS
-Next are the problems in that I was stucking
+INSERT INTO users
+(name, email, country, password) VALUES
+('Richard', 'r.martinezdk@gmail.com', 'Colombia', '***');
 
-## ERROR 1:
-Correct the classpath of your application so that it contains compatible versions of the classes org.hibernate.jpa.boot.internal.PersistenceUnitInfoDescriptor and javax.persistence.spi.PersistenceUnitInfo
-How do I can correct the classpath?
 
-## ERROR 2:
-An attempt was made to call a method that does not exist. The attempt was made from the following location:
+--select * from users;
+```
 
-    org.hibernate.jpa.boot.internal.PersistenceUnitInfoDescriptor.getValidationMode(PersistenceUnitInfoDescriptor.java:88)
 
-## SOLUTION: 
-I removed this dependency from build.gradle:
-```gradle
-dependencies {
-	implementation 'org.glassfish:javax.persistence:10.0-b28'
-}
+# Execute
+```sh
+gradle bootRun
 ```
 ---
-## ERROR 1:
-org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userFacadeImpl' defined in file [/Users/richard/devs/java/api_rest/build/classes/java/main/com/test/api_rest/facade/impl/UserFacadeImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userServiceImpl' defined in file [/Users/richard/devs/java/api_rest/build/classes/java/main/com/test/api_rest/service/impl/UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.test.api_rest.repository.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.test.api_rest.domain.entity.User
 
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userServiceImpl' defined in file [/Users/richard/devs/java/api_rest/build/classes/java/main/com/test/api_rest/service/impl/UserServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'userRepository' defined in com.test.api_rest.repository.UserRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.test.api_rest.domain.entity.User
+# USING
 
-## ERROR 2:
-Parameter 0 of constructor in com.test.api_rest.layer.business.service.impl.UserServiceImpl required a bean of type 'com.test.api_rest.layer.persistence.UserRepository' that could not be found.
+Each endpoint will demonstrate the typical operations: `GET`, `POST`, `PUT`, and `DELETE`.
 
+### 1. **Users Endpoint**
 
-## SOLUTION:
-I have this versions respectly for gradle and java:
-Gradle 8.4
-openjdk 20.0.2
+#### 1.1 **GET**: Retrieve All Users
+```bash
+curl -X GET http://localhost:8080/users
+```
+**Example Response**:
+```json
+[
+  {
+    "id": 1,
+    "name": "john_doe",
+    "email": "john@example.com"
+  },
+  {
+    "id": 2,
+    "name": "jane_doe",
+    "email": "jane@example.com"
+  }
+]
+```
 
-1. **Install SDKMAN!:**
-   Open your terminal and run the following command to install SDKMAN!:
+#### 1.2 **GET**: Retrieve a Specific User by ID
+```bash
+curl -X GET http://localhost:8080/users/1
+```
+**Example Response**:
+```json
+{
+  "id": 1,
+  "name": "john_doe",
+  "email": "john@example.com"
+}
+```
 
-   ```sh
-   curl -s "https://get.sdkman.io" | bash
-   ```
+#### 1.3 **POST**: Create a New User
+```bash
+curl -X POST http://localhost:8080/users \
+  -H "Content-Type: application/json" \
+  -d '{"name":"new_user", "email":"new_user@example.com"}'
+```
+**Example Response**:
+```json
+{
+  "id": 3,
+  "name": "new_user",
+  "email": "new_user@example.com"
+}
+```
 
-2. **Restart Your Terminal:**
-   After the installation is complete, restart your terminal or run:
+#### 1.4 **PUT**: Update an Existing User
+```bash
+curl -X PUT http://localhost:8080/users/3 \
+  -H "Content-Type: application/json" \
+  -d '{"name":"updated_user", "email":"updated_user@example.com"}'
+```
+**Example Response**:
+```json
+{
+	// TODO: Validar que no cree un nuevo usuario cuando no exista por id
+  "id": 3,
+  "name": "updated_user",
+  "email": "updated_user@example.com"
+}
+```
 
-   ```sh
-   source "$HOME/.sdkman/bin/sdkman-init.sh"
-   ```
+#### 1.5 **DELETE**: Remove a User by ID
+```bash
+curl -X DELETE http://localhost:8080/users/3
+```
+**Example Response**:
+```json
+{
+	//TODO: Poner este mensaje:
+  "message": "User with ID 3 deleted successfully"
+}
+```
 
-3. **Install Java:**
-   To see the available Java versions, you can use:
+---
 
-   ```sh
-   sdk list java
-   ```
+### 2. **Tasks Endpoint**
 
-   To install a specific version (for example, Java 17), use:
+#### 2.1 **GET**: Retrieve All Tasks
+```bash
+curl -X GET http://localhost:8080/tasks
+```
+**Example Response**:
+```json
+[
+  {
+    "id": 101,
+    "name": "Complete API docs",
+    "description": "Document all endpoints",
+    "timeRequiredToComplete": 9
+  },
+  {
+    "id": 102,
+    "name": "Deploy to production",
+    "description": "Deploy the API to Azure",
+    "timeRequiredToComplete": 10
+  }
+]
+```
 
-   ```sh
-   sdk install java 17.0.1-open
+#### 2.2 **GET**: Retrieve a Specific Task by ID
+```bash
+curl -X GET http://localhost:8080/tasks/101
+```
+**Example Response**:
+```json
+{
+  "id": 101,
+  "name": "Complete API docs",
+  "description": "Document all endpoints",
+  "timeRequiredToComplete": 8
+}
+```
+
+#### 2.3 **POST**: Create a New Task
+```bash
+curl -X POST http://localhost:8080/tasks \
+  -H "Content-Type: application/json" \
+  -d '{"name":"New Task", "description":"Details of new task", "timeRequiredToComplete":7}'
+```
+**Example Response**:
+```json
+{
+  "id": 103,
+  "name": "New Task",
+  "description": "Details of new task",
+  "timeRequiredToComplete": 9
+}
+```
+
+#### 2.4 **PUT**: Update an Existing Task
+```bash
+curl -X PUT http://localhost:8080/tasks/103 \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Updated Task", "description":"Updated details", "timeRequiredToComplete":8}'
+```
+**Example Response**:
+```json
+{
+	// FIX: actualizar en vez de crear
+  "id": 103,
+  "name": "Updated Task",
+  "description": "Updated details",
+  "timeRequiredToComplete": 10
+}
+```
+
+#### 2.5 **DELETE**: Remove a Task by ID
+```bash
+curl -X DELETE http://localhost:8080/tasks/103
+```
+**Example Response**:
+```json
+{
+// TODO: poner este titulo
+  "message": "Task with ID 103 deleted successfully"
+}
+```
+
