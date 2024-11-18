@@ -7,10 +7,8 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface UserRequestMapper {
-
 	@Mapping(source = "name", target = "name")
 	@Mapping(source = "email", target = "email")
 	@Mapping(source = "country", target = "country")
-	@Mapping(source = "password", target = "password")
 	User toDomain(UserRequest request);
 }

@@ -11,7 +11,6 @@ public class UserSetValuesToUpdateService {
 		currentUser.setName(request.getName());
 		currentUser.setEmail(request.getEmail());
 		currentUser.setCountry(request.getCountry());
-		currentUser.setPassword(request.getPassword());
 	}
 
 }

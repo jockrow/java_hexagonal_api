@@ -32,7 +32,6 @@ public class User {
 	private String name;
 	private String email;
 	private String country;
-	private String password;
 	@ManyToMany(fetch = FetchType.LAZY, cascade = {
 			CascadeType.PERSIST,
 			CascadeType.MERGE

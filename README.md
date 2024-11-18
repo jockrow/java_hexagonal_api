@@ -15,12 +15,12 @@ Testing	mockito
 # Instruction to create persistence data
 ```sql
 CREATE TABLE users (ID INT PRIMARY KEY , NAME TEXT, EMAIL VARCHAR(50),
-COUNTRY VARCHAR(50), PASSWORD VARCHAR(50))
+COUNTRY VARCHAR(50))
 
 
 INSERT INTO users
-(name, email, country, password) VALUES
-('Richard', 'r.martinezdk@gmail.com', 'Colombia', '***');
+(name, email, country) VALUES
+('Richard', 'r.martinezdk@gmail.com', 'Colombia');
 
 
 --select * from users;
@@ -107,13 +107,6 @@ curl -X PUT http://localhost:8080/users/3 \
 ```bash
 curl -X DELETE http://localhost:8080/users/3
 ```
-**Example Response**:
-```json
-{
-	//TODO: Poner este mensaje:
-  "message": "User with ID 3 deleted successfully"
-}
-```
 
 ---
 
@@ -180,7 +173,7 @@ curl -X PUT http://localhost:8080/tasks/103 \
 **Example Response**:
 ```json
 {
-	// FIX: actualizar en vez de crear
+	// TODO: Validar que no cree un nueva tarea cuando no exista por id
   "id": 103,
   "name": "Updated Task",
   "description": "Updated details",
@@ -192,11 +185,5 @@ curl -X PUT http://localhost:8080/tasks/103 \
 ```bash
 curl -X DELETE http://localhost:8080/tasks/103
 ```
-**Example Response**:
-```json
-{
-// TODO: poner este titulo
-  "message": "Task with ID 103 deleted successfully"
-}
-```
+---
 

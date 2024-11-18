@@ -16,64 +16,72 @@ import java.util.stream.Collectors;
 @Service
 public class TaskFacade implements ITaskFacade {
 
-    private final ITaskService iTaskService;
-    private final TaskRequestMapper taskRequestMapper;
-    private final TaskDtoMapper taskDtoMapper;
-    private final TaskValidateAvailabilityToDeleteService taskValidateAvailabilityToDeleteService;
-    private final TaskSetValuesToUpdateService taskSetValuesToUpdateService;
-    public TaskFacade(ITaskService iTaskService,
-                      TaskRequestMapper taskRequestMapper,
-                      TaskDtoMapper taskDtoMapper,
-                      TaskValidateAvailabilityToDeleteService taskValidateAvailabilityToDeleteService, TaskSetValuesToUpdateService taskSetValuesToUpdateService) {
-        this.iTaskService = iTaskService;
-        this.taskRequestMapper = taskRequestMapper;
-        this.taskDtoMapper = taskDtoMapper;
-        this.taskValidateAvailabilityToDeleteService = taskValidateAvailabilityToDeleteService;
-        this.taskSetValuesToUpdateService = taskSetValuesToUpdateService;
-    }
+	private final ITaskService iTaskService;
+	private final TaskRequestMapper taskRequestMapper;
+	private final TaskDtoMapper taskDtoMapper;
+	private final TaskValidateAvailabilityToDeleteService taskValidateAvailabilityToDeleteService;
+	private final TaskSetValuesToUpdateService taskSetValuesToUpdateService;
 
-    public TaskDto createNew(TaskRequest request){
+	public TaskFacade(ITaskService iTaskService,
+			TaskRequestMapper taskRequestMapper,
+			TaskDtoMapper taskDtoMapper,
+			TaskValidateAvailabilityToDeleteService taskValidateAvailabilityToDeleteService,
+			TaskSetValuesToUpdateService taskSetValuesToUpdateService) {
+		this.iTaskService = iTaskService;
+		this.taskRequestMapper = taskRequestMapper;
+		this.taskDtoMapper = taskDtoMapper;
+		this.taskValidateAvailabilityToDeleteService = taskValidateAvailabilityToDeleteService;
+		this.taskSetValuesToUpdateService = taskSetValuesToUpdateService;
+	}
 
-        var taskToCreate = taskRequestMapper.toDomain(request);
+	public TaskDto createNew(TaskRequest request) {
 
-        var taskCreated = iTaskService.create(taskToCreate);
+		var taskToCreate = taskRequestMapper.toDomain(request);
 
-        return taskDtoMapper.toDto(taskCreated);
-    }
+		var taskCreated = iTaskService.create(taskToCreate);
 
-    public TaskDto getById(Long id){
+		return taskDtoMapper.toDto(taskCreated);
+	}
 
-        var task = iTaskService.getById(id);
+	public TaskDto getById(Long id) {
 
-        return taskDtoMapper.toDto(task);
-    }
+		var task = iTaskService.getById(id);
 
-    public List<TaskDto> getAll(){
-        var tasks = iTaskService.getAll();
-        return tasks
-                .stream()
-                .map(taskDtoMapper::toDto)
-                .collect(Collectors.toList());
-    }
+		return taskDtoMapper.toDto(task);
+	}
 
-    public void deleteById(Long id){
+	public List<TaskDto> getAll() {
+		var tasks = iTaskService.getAll();
+		return tasks
+				.stream()
+				.map(taskDtoMapper::toDto)
+				.collect(Collectors.toList());
+	}
 
-        var task = iTaskService.getById(id);
+	public void deleteById(Long id) {
+		var task = iTaskService.getById(id);
+		taskValidateAvailabilityToDeleteService.execute(task);
+		iTaskService.deleteById(id);
+	}
 
-        taskValidateAvailabilityToDeleteService.execute(task);
+	// public ResponseEntity<Map<String, String>> deleteTask(@PathVariable Long id)
+	// {
+	// iTaskService.deleteById(id); // Ensure this method deletes the task
+	// Map<String, String> response = new HashMap<>();
+	// response.put("message", "Task with ID " + id + " deleted successfully");
+	// return ResponseEntity.ok(response);
+	// }
 
-        iTaskService.deleteById(id);
-    }
+	public TaskDto update(TaskRequest taskRequest, Long id) {
 
-    public TaskDto update(TaskRequest request, Long id){
+		var taskToUpdate = taskRequestMapper.toDomain(taskRequest);
 
-        var taskToUpdate = taskRequestMapper.toDomain(request);
+		taskSetValuesToUpdateService.execute(taskRequest, taskToUpdate);
+		taskToUpdate.setId(id);
 
-        taskSetValuesToUpdateService.execute(request, taskToUpdate);
+		var taskUpdated = iTaskService.update(taskToUpdate);
 
-        var taskUpdated = iTaskService.update(taskToUpdate);
-
-        return taskDtoMapper.toDto(taskUpdated);
-    }
+		return taskDtoMapper.toDto(taskUpdated);
+	}
 
 }

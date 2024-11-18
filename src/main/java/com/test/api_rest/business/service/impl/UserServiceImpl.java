@@ -32,7 +32,7 @@ public class UserServiceImpl implements IUserService {
 
 		if (optionalUser.isEmpty()) {
 			throw new UserException(HttpStatus.NOT_FOUND,
-					String.format(UserConstant.TASK_NOT_FOUND_MESSAGE_ERROR, id));
+					String.format(UserConstant.USER_NOT_FOUND_MESSAGE_ERROR, id));
 		}
 
 		return optionalUser.get();

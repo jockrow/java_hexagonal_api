@@ -23,10 +23,8 @@ public class TaskServiceImpl implements ITaskService {
 
     @Override
     public Task create(Task request) {
-
         request.setInitialValues();
         return taskRepository.save(request);
-
     }
 
     @Override
